@@ -83,45 +83,32 @@ const validate = async (data) => {
 
 router.post("/signup", async (req, res) => {
     try {
-        const existingUser = await User.find()
-        const check = await existingUser.filter((user) => {
-            if (user.username === req.body.username) {
-                res.status(400).json({ error: "Username already exists" })
-                return true
-            }
-            else if (user.email === req.body.email) {
-                res.status(400).json({ error: "Email already exists" })
-                return true
-            }
-        })
+        const existingUser = await User.find();
+        const userExists = existingUser.some(user => user.username === req.body.username || user.email === req.body.email);
 
-        if (check !== true) {
-            const validation = await validate(req.body)
-            if (validation === true) {
-                const hash = bcrypt.hashSync(req.body.password, saltRounds);
-                const new_user = await User.create({
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: hash,
-                    fullName: req.body.fullName
-                })
-                const token = createToken(new_user._id)
-                res.status(200).json({ message: new_user, token: token })
-                return
-            }
-            else {
-                res.status(400).json({ error: validation.message || "server side error" })
-                return
-            }
+        if (userExists) {
+            return res.status(400).json({ error: "Username or email already exists" });
         }
-        else {
-            res.status(400).json({ error: "User already exists" })
-            return
+
+        const validation = await validate(req.body);
+        if (validation !== true) {
+            return res.status(400).json({ error: validation.message || "Server side error" });
         }
+
+        const hash = bcrypt.hashSync(req.body.password, saltRounds);
+        const newUser = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: hash,
+            fullName: req.body.fullName
+        });
+
+        const token = createToken(newUser._id);
+        return res.status(200).json({ message: newUser, token: token });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
     }
-    catch (err) {
-        res.status(400).json({ error: err.message})
-    }
-})
+});
+
 
 module.exports = router;
