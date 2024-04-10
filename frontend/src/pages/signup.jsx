@@ -51,7 +51,7 @@ export default function Signup() {
                         <img src={dribbble} alt="" className='h-5' />
                     </div>
                     <div className=''>
-                        Already a member<a href="signin" className='text-[#5e51aa]'>? Sign In</a>
+                        Already a member<a href="/signin" className='text-[#5e51aa]'>? Sign In</a>
                     </div>
                 </nav>
                 <form onSubmit={handleSubmit} className='form w-4/5 lg:w-3/5 m-auto flex flex-col gap-5 md:gap-6 lg:gap-8 font-bold text-sm md:text-base lg:text-lg'>
