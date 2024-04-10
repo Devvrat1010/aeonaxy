@@ -10,17 +10,18 @@ const router = express.Router();
 router.post("/", async (req, res) => {
     try{
 
-        const { public_id, username } = req.body;
-        if (!public_id || !username) {
+        const { avatar, username } = req.body;
+        if (!avatar || !username) {
             res.status(400).json({ error: "All fields are required" });
             return 
         }
         else{
-            const img = await User.findOneAndUpdate({ username: username }, { image: public_id })
+            const img = await User.findOneAndUpdate({ username: username }, { avatar: avatar })
             if (!img) {
                 res.status(400).json({ error: "User not found" });
                 return
             }
+            console.log(img, "image")
             res.status(200).json({ message: "Image uploaded successfully" });
         }
     }
