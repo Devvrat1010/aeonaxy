@@ -61,6 +61,7 @@ router.post("/signin", async (req, res) => {
 });
 
 
+
 const validate = async (data) => {
     const { username, email, password } = data
     if (!username || !email || !password) {
@@ -109,6 +110,7 @@ router.post("/signup", async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 });
+
 
 
 module.exports = router;

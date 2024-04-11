@@ -3,6 +3,7 @@ import Signin from './pages/signin'
 import Signup from './pages/signup'
 import CompleteProfile from './pages/completeProfile'
 import Home from './pages/home' 
+import UserSurvey from './pages/userSurvey'
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                     <Route path="/signup" element = {<Signup/>} />
                     <Route path="/signin" element = {<Signin/>} />
                     <Route path="/completeProfile" element = {<CompleteProfile/>} />
+                    <Route path='userSurvey' element = {<UserSurvey/>}/>
                 </Routes>
             </Router>
         </main>

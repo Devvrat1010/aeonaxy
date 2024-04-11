@@ -2,12 +2,12 @@ import dribbbleLogo from '../assets/dribbbleLogo.png';
 import { MdCameraEnhance } from "react-icons/md";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/navbar';
 
 export default function completeProfile() {
 
     const [currUser, setCurrUser] = useState({})
     const [profilePic, setProfilePic] = useState("https://res.cloudinary.com/dpscsgghc/image/upload/v1712827678/dkaj8fqwkilnrdzsjwry.jpg")
-    // const [profilePic, setProfilePic] = useState("")
     const navigate = useNavigate()
     const [location, setLocation] = useState('')
 
@@ -33,7 +33,6 @@ export default function completeProfile() {
         })
         .then(res => res.json())
         .then(data => {
-            // console.log(data)
             setProfilePic(data.secure_url)
         })
     }
@@ -53,21 +52,16 @@ export default function completeProfile() {
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            navigate('/')
+            navigate('/userSurvey')
         })
     }
 
 
     return (
         <div>
-            <nav className='font-medium flex justify-between items-center w-full px-2 py-3 lg:px-3 lg:py-4 3xl:px-5 3xl:py-6 text-sm md:text-base'>
-                <div className=''>
-                    <img src={dribbbleLogo} alt="" className='h-8 sm:h-10 lg:h-10 2xl:h-12' />
-                </div>
-                <h1 className='text-2xl mb-2'>
-                    {currUser.message && currUser.message.username}
-                </h1>
-            </nav>
+            <Navbar
+                username={currUser.message && currUser.message.username}
+            />
             <div className='px-2 sm:w-8/12 lg:w-7/12 m-auto flex flex-col gap-5 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11'>
                 <div className='flex flex-col gap-1 sm:gap-2 lg:gap-2 xl:gap-3 2xl:gap-4 3xl:gap-7'>
                     <h1 className='text-xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-bold'>
@@ -112,7 +106,7 @@ export default function completeProfile() {
                         </div>
 
                     </div>
-                    <button className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white w-1/2'>
+                    <button type='submit' className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white w-1/2' onClick={handleSubmit}>
                         Next
                     </button>
                 </form>
