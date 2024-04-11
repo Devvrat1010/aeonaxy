@@ -1,31 +1,25 @@
 import dribbbleLogo from '../assets/dribbbleLogo.png';
 import { MdCameraEnhance } from "react-icons/md";
-import camera from '../assets/camera.png';
 import { useEffect, useState } from 'react';
-import { Image } from 'cloudinary-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function completeProfile() {
 
-    const [currUser, setCurrUser] = useState({})
+    const [currUser, setCurrUser] = useState({ username: '' })
     const [profilePic, setProfilePic] = useState("https://res.cloudinary.com/dpscsgghc/image/upload/v1712816863/tdrabonedlh4fiyqckft.png")
     const navigate = useNavigate()
+    const [location, setLocation] = useState('')
+
     useEffect(() => {
         const currUser = JSON.parse(sessionStorage.getItem('user'))
         if (!currUser) {
             navigate("/")
         }
         else {
-            console.log(currUser)
-            console.log(currUser.message.username)
             setCurrUser(currUser)
         }
+        console.log(currUser, 'user')
     }, [])
-    const [image, setImage] = useState(null)
-    const handleChange = (e) => {
-        console.log(e.target.files[0])
-        setImage(e.target.files[0])
-    }
 
     const uploadImage = (e) => {
         const formData = new FormData()
@@ -36,18 +30,30 @@ export default function completeProfile() {
             method: 'POST',
             body: formData
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setProfilePic(data.secure_url)
-                fetch('http://localhost:5000/api/uploadImage', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ avatar: data.secure_url, username: currUser.message.username })
-                })
-            })
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+            setProfilePic(data.secure_url)
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(profilePic, 'pp')
+        console.log(location, 'loc')
+        console.log(currUser.message.username, 'user')
+        fetch('http://localhost:5000/api/uploadImage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ avatar: profilePic, location: location, username: currUser.message.username })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            navigate('/')
+        })
     }
 
 
@@ -67,39 +73,46 @@ export default function completeProfile() {
                         Let others get to know you better! You can do these later
                     </p>
                 </div>
-
-                <div className='flex items-center gap-16'>
-                    <div className='flex flex-col gap-4'>
-                        <h2 className='text-3xl font-bold'>
-                            Add an avatar
-                        </h2>
-                        <div className='rounded-full w-64 h-64 border-dashed border-2 border-[#c4c4c4] flex justify-center items-center'>
-                            {
-                                profilePic !== '' ? <img src={profilePic} alt="" className='rounded-full h-64 w-64' /> : 
-                                <MdCameraEnhance size={35} color='#b1b1b1'/>
-                            }
+                
+                <form onSubmit={handleSubmit}>
+                    <div className='flex items-center gap-16'>
+                        <div className='flex flex-col gap-4'>
+                            <h2 className='text-3xl font-bold'>
+                                Add an avatar
+                            </h2>
+                            <div className='rounded-full w-64 h-64 border-dashed border-2 border-[#c4c4c4] flex justify-center items-center'>
+                                {
+                                    profilePic !== '' ? <img src={profilePic} alt="" className='rounded-full h-64 w-64' /> :
+                                        <MdCameraEnhance size={35} color='#b1b1b1' />
+                                }
+                            </div>
+                        </div>
+                        <div className='flex flex-col gap-8 '>
+                            <button className='bg- h-fit w-fit'>
+                                <input type="file" id="avatar" name='avatar' accept="image/*" onChange={uploadImage} className='' />
+                            </button>
+                            <button className='text-[#919191] text-lg font-medium w-fit'>
+                                {'>'} Or Choose one of our defaults
+                            </button>
                         </div>
                     </div>
-                    <div className='flex flex-col gap-8 '>
-                        <button className='bg- h-fit w-fit'>
-                            <input type="file" id="file" accept="image/*" onChange={uploadImage} className=''/>
-                        </button>
-                        <button className='text-[#919191] text-lg font-medium w-fit'>
-                            {'>'} Or Choose one of our defaults
-                        </button>
+                    <div className='flex flex-col gap-6 w-full'>
+                        <label htmlFor="location" className='font-bold text-3xl'> Add your location</label>
+
+                        <div className=''>
+                            <input type="text" id='location' name='location' placeholder='Enter a location' className='text-xl font-medium focus:outline-none mb-2 border-b-[2px] hover:border-[#ff9ec5] duration-100 focus:border-[#ff9ec5] w-1/2' onChange={
+                                (e) => {
+                                    setLocation(e.target.value)
+                                }
+                            } />
+                        </div>
+
                     </div>
-                </div>
-                <div className='flex flex-col gap-6 w-full'>
-                    <label htmlFor="location" className='font-bold text-3xl'> Add your location</label>
-                    
-                    <div className=''>
-                        <input type="text" id='location' name='location' placeholder='Enter a location' className='text-xl font-medium focus:outline-none mb-2 border-b-[2px] hover:border-[#ff9ec5] duration-100 focus:border-[#ff9ec5] w-1/2' />
-                    </div>
-                            
-                </div>
-                <button className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white w-1/2'>
-                    Next
-                </button>
+                    <button className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white w-1/2'>
+                        Next
+                    </button>
+                </form>
+
             </div>
         </div>
     )

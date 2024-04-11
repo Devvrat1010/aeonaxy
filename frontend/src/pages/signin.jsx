@@ -64,9 +64,9 @@ export default function Signup() {
                             <input type="password" id="password" name="password" placeholder="6+ characters" onChange={handleChange} required className='bg-[#f1f1f1] p-2 px-4 rounded-lg font-normal md:font-medium focus:outline-[#ff9ec5]'/>
                         </div>    
                     </div>
-                    <button className='bg-[#ea4b8b] rounded-lg p-3 text-white w-1/2'>
+                    <button type='submit' className='bg-[#ea4b8b] rounded-lg p-3 text-white w-1/2' >
                         Sign In
-                    </button>
+                    </button >
                     <p className=' text-[#b1b1b1] font-medium text-xs md:text-sm lg:text-base'>
                         This site is protected by reCAPTCHA and the Google <a href="/privacy" className='text-[#5e51aa]'>Privacy Policy</a> and <a href="/terms" className='text-[#5e51aa]'>Terms of Service</a> apply.
                     </p>
