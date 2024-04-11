@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export default function completeProfile() {
 
     const [currUser, setCurrUser] = useState({})
-    const [profilePic, setProfilePic] = useState('')
+    const [profilePic, setProfilePic] = useState("https://res.cloudinary.com/dpscsgghc/image/upload/v1712816863/tdrabonedlh4fiyqckft.png")
     const navigate = useNavigate()
     useEffect(() => {
         const currUser = JSON.parse(sessionStorage.getItem('user'))
@@ -75,7 +75,7 @@ export default function completeProfile() {
                         </h2>
                         <div className='rounded-full w-64 h-64 border-dashed border-2 border-[#c4c4c4] flex justify-center items-center'>
                             {
-                                profilePic !== '' ? <img src={profilePic} alt="" className='rounded-full w-20 h-20' /> : 
+                                profilePic !== '' ? <img src={profilePic} alt="" className='rounded-full h-64 w-64' /> : 
                                 <MdCameraEnhance size={35} color='#b1b1b1'/>
                             }
                         </div>

@@ -30,4 +30,9 @@ const start = async () => {
     }
 }
 
+app.use("/", (req, res) => {
+    res.send("Hello World");
+  });
+  
+
 start()
