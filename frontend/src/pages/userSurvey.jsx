@@ -62,22 +62,22 @@ export default function userSurvey() {
             />
             <div className="px-2 sm:w-8/12 lg:w-8/12 m-auto flex flex-col gap-5 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11">
                 <div className='flex flex-col gap-1 sm:gap-2 lg:gap-2 xl:gap-3 2xl:gap-4 3xl:gap-7 text-center'>
-                    <h1 className='text-xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-bold'>
+                    <h1 className='text-xl sm:text-3xl lg:text-4xl 3xl:text-5xl font-bold'>
                         What brings you to Dribbble?
                     </h1>
                     <p className='text-[#919191] text-xs sm:text-base lg:text-lg font-medium'>
                         Select the options that best describe you. Don't worry, you can explore other options later.
                     </p>
                 </div>
-                <form action="" className="">
+                <form action="" className="w-full flex flex-col gap-6">
 
-                    <div onSubmit={handleSubmit} className="w-full flex justify-center py-20 text-left gap-7 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11">
+                    <div onSubmit={handleSubmit} className="w-full flex justify-center xl:py-8 3xl:py-16 text-left gap-7 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11">
 
                         <div className={`border-[#f1f1f1] border-2 rounded-xl h-80 p-6 text-center ${survey.surveyPot === "surveyPot" && "border-pink-500"}`}>
                             <div className={`${survey.surveyPot && "-translate-y-20  "}`}>
                                 <img src={surveyPot} alt="" className="w-56 m-auto mb-7 duration" />
                                 <h1 className="font-bold text-xl w-64 mb-2 ">
-                                    I'm a designer looking to shar my work
+                                    I'm a designer looking to share my work
                                 </h1>
                                 {
                                     survey.surveyPot && <p className="w-64 text-sm text-[#818181] font-medium">
@@ -124,9 +124,16 @@ export default function userSurvey() {
                             </div>
                         </div>
                     </div>
-                    <button className='m-auto bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white w-fit focus:outline-none' onClick={handleSubmit}>
-                        Next
+                    <p className="m-auto w-fit text-xs sm:text-base lg:text-lg font-medium">
+                        Anything else? You can select multiple
+                    </p>
+                    <button className='bg-[#ea4b8b] w-1/5 m-auto hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white focus:outline-none font-semibold' onClick={handleSubmit}>
+                        Finish
                     </button>
+                    <p className="text-[#919191] m-auto w-fit text-xs sm:text-base lg:text-lg font-medium">
+                        or Press Return
+                    </p>
+
                 </form>
 
             </div>

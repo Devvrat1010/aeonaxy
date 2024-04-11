@@ -13,11 +13,9 @@ const db = process.env.DB_URI
 const port = process.env.PORT || 5000
 
 const auth = require('./routes/auth')
-const uploadImage = require('./routes/uploadImage')
 const completeProfile = require('./routes/completeProfile')
 
 app.use('/api/auth', auth)
-app.use('/api/uploadImage', uploadImage)
 app.use('/api/completeProfile', completeProfile)
 
 const start = async () => {
