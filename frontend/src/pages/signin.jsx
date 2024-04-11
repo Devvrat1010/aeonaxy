@@ -17,7 +17,8 @@ export default function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        fetch('http://localhost:5000/api/auth/signin', {
+        // fetch('http://localhost:5000/api/auth/signin', {
+        fetch('https://aeonaxy-8u8e.onrender.com/api/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
