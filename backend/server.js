@@ -14,9 +14,11 @@ const port = process.env.PORT || 5000
 
 const auth = require('./routes/auth')
 const completeProfile = require('./routes/completeProfile')
+const emailVerification = require('./routes/emailVerification')
 
 app.use('/api/auth', auth)
 app.use('/api/completeProfile', completeProfile)
+app.use('/api/emailVerification', emailVerification)
 
 const start = async () => {
     try {
@@ -32,7 +34,6 @@ const start = async () => {
 
 app.use("/", (req, res) => {
     res.send("Hello World");
-  });
-  
+});
 
 start()

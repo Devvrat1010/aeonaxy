@@ -3,6 +3,7 @@ import { MdCameraEnhance } from "react-icons/md";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
+import checkUser from '../functions/checkUser';
 
 export default function completeProfile() {
 
@@ -12,14 +13,17 @@ export default function completeProfile() {
     const [location, setLocation] = useState('')
 
     useEffect(() => {
-        const currUser = JSON.parse(sessionStorage.getItem('user'))
-        if (!currUser) {
-            navigate("/")
-        }
-        else {
-            setCurrUser(currUser)
-        }
-        console.log(currUser, 'user')
+        const fetchData = async () => {
+            const result = await checkUser();
+            console.log(result, 'user');
+    
+            if (result.error === true) {
+                navigate("/signin");
+            } else {
+                setCurrUser(result.currUser);
+            }
+        };
+        fetchData();
     }, [])
 
     const uploadImage = (e) => {
@@ -42,7 +46,7 @@ export default function completeProfile() {
         console.log(profilePic, 'pp')
         console.log(location, 'loc')
         console.log(currUser.message.username, 'user')
-        fetch('http://localhost:5000/api/uploadImage', {
+        fetch('http://localhost:5000/api/completeProfile/uploadImage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -72,7 +76,7 @@ export default function completeProfile() {
                     </p>
                 </div>
                 
-                <form onSubmit={handleSubmit} className='w-full flex flex-col text-left gap-7 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11'>
+                <div className='w-full flex flex-col text-left gap-7 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11'>
                     <div className='flex flex-col sm:flex-row items-center gap-4 sm:gap-8 lg:gap-12 2xl:gap-16 w-full'>
                         <div className='flex flex-col gap-3 sm:gap-5 lg:gap-7 2xl:gap-12 w-full sm:w-auto'>
                             <h2 className='sm:text-xl lg:text-2xl 2xl:text-3xl font-bold text-cente text-left '>
@@ -106,10 +110,10 @@ export default function completeProfile() {
                         </div>
 
                     </div>
-                    <button type='submit' className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white w-1/2' onClick={handleSubmit}>
+                    <button className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-3 text-white w-1/2' onClick={handleSubmit}>
                         Next
                     </button>
-                </form>
+                </div>
 
             </div>
         </div>

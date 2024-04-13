@@ -21,7 +21,6 @@ const createToken = (id) => {
 
 router.get("/getLoggedInUser", async (req, res) => {
     const token = req.get("Authorization")
-    console.log(token)
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if (err) {
@@ -47,7 +46,6 @@ router.post("/signin", async (req, res) => {
     const user = await User.findOne({ email: email });
     if (user) {
         const authorize = bcrypt.compareSync(password, user.password);
-        console.log(authorize);
         if (authorize) {
             const token = createToken(user._id);
             res.status(200).json({ message: user, token: token });

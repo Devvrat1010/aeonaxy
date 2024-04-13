@@ -12,7 +12,6 @@ router.post("/uploadImage", async (req, res) => {
             return 
         }
         else{
-            // const img = await User.findOneAndUpdate({ username: username }, { avatar: avatar, location: location})
             const img = await User.findOneAndUpdate(
                 { username: username },
                 { avatar: avatar, location: location }
@@ -41,7 +40,7 @@ router.post("/survey", async (req, res) => {
         else {
             const user = await User.findOneAndUpdate(
                 { username: username },
-                { survey: survey }
+                { survey: survey, profileCompleted: true },
             )
             if (!user) {
                 res.status(400).json({ error: "User not found" });
