@@ -3,7 +3,7 @@ const checkUser = async () => {
         const token = document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1]
         const currUser = JSON.parse(sessionStorage.getItem('user'))
         if (!currUser) {
-            const currUser = fetch("http://localhost:5000/api/auth/getLoggedInUser", {
+            const currUser = fetch("https://aeonaxy-8u8e.onrender.com/api/auth/getLoggedInUser", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

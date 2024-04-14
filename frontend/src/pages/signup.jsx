@@ -20,7 +20,7 @@ export default function Signup() {
         if (!userDetails.checked) {
             return setErrorMsg('Please agree to the terms and conditions')
         }
-        fetch('http://localhost:5000/api/auth/signup', {
+        fetch('https://aeonaxy-8u8e.onrender.com/api/auth/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
