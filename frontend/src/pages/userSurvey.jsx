@@ -24,12 +24,16 @@ export default function userSurvey() {
     useEffect(() => {
         const fetchData = async () => {
             const result = await checkUser();
-            console.log(result, 'user');
+            console.log(result.user, 'user thisssss');
     
             if (result.error === true) {
                 navigate("/signin");
-            } else {
-                setCurrUser(result.currUser);
+            }
+            else if (result.user.profileCompleted === true) {
+                navigate('/')
+            } 
+            else {  
+                setCurrUser(result.user);
             }
         };
         fetchData();
@@ -39,9 +43,26 @@ export default function userSurvey() {
         setClick({ ...survey, [e.target.id]: !survey[e.target.id] })
     }
 
+    const sendConfirmationEmail = () => {
+        fetch('http://localhost:5000/api/auth/sendConfirmationEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: currUser.email })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    }
+    
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+        console.log(currUser, "`currUser`")
         const finalSurvey = Object.keys(survey).filter(key => survey[key]).map(key => surveyDetails[key])
         console.log(finalSurvey, "finalSurvey")
         fetch('http://localhost:5000/api/completeProfile/survey', {
@@ -49,10 +70,21 @@ export default function userSurvey() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({survey: finalSurvey, username: currUser.message.username})
+            body: JSON.stringify({survey: finalSurvey, username: currUser.username})
         })
         .then(res => res.json())
         .then(data => {
+            console.log(data, "user fginal survey")
+            let tempUser = window.sessionStorage.getItem('user', JSON.stringify(data))
+            tempUser = JSON.parse(tempUser)
+            console.log(tempUser, "tempUser")
+            tempUser.user = data.user
+
+            window.sessionStorage.setItem('user', JSON.stringify(data.user))
+            
+            console.log(JSON.parse(window.sessionStorage.getItem('user')), "This is the Final user")
+
+            sendConfirmationEmail()
             navigate('/')
         })
     }
@@ -63,8 +95,7 @@ export default function userSurvey() {
             <Navbar
                 back={true}
                 backLink='/completeProfile'
-                username={currUser.message && currUser.message.username}
-                onClick={() => navigate('/completeProfile')}
+                username={currUser.username}
             />
             <div className="px-6 sm:px-0 sm:w-8/12 lg:w-8/12 m-auto flex flex-col gap-5 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11">
                 <div className='flex flex-col gap-1 sm:gap-2 lg:gap-2 xl:gap-3 2xl:gap-4 3xl:gap-7 text-center'>

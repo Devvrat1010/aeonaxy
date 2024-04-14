@@ -4,6 +4,7 @@ import Signup from './pages/signup'
 import CompleteProfile from './pages/completeProfile'
 import Home from './pages/home' 
 import UserSurvey from './pages/userSurvey'
+import ConfirmedEmail from './pages/confirmedEmail'
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/signin" element = {<Signin/>} />
                     <Route path="/completeProfile" element = {<CompleteProfile/>} />
                     <Route path='userSurvey' element = {<UserSurvey/>}/>
+                    <Route path='confirmedEmail' element = {<ConfirmedEmail/>}/>
                 </Routes>
             </Router>
         </main>

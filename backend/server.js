@@ -14,11 +14,14 @@ const port = process.env.PORT || 5000
 
 const auth = require('./routes/auth')
 const completeProfile = require('./routes/completeProfile')
-const emailVerification = require('./routes/emailVerification')
+// const emailVerification = require('./routes/emailVerification')
+const cronjobs = require('./routes/cronjobs')
 
 app.use('/api/auth', auth)
 app.use('/api/completeProfile', completeProfile)
-app.use('/api/emailVerification', emailVerification)
+// app.use('/api/emailVerification', emailVerification)
+app.use('/api/cronjobs', cronjobs)
+
 
 const start = async () => {
     try {
@@ -33,6 +36,7 @@ const start = async () => {
 }
 
 app.use("/", (req, res) => {
+    // res.redirect("http://localhost:5173/confirmedEmail");
     res.send("Hello World");
 });
 

@@ -23,7 +23,9 @@ export default function Home() {
                 console.log(result.error, "error")
                 navigate("/signin");
             } else {
-                setCurrUser(result.currUser);
+                console.log(result, "currUser")
+                setCurrUser(result.user);
+                console.log(result.user, "currUser .user")
             }
         };
         fetchData();
@@ -35,7 +37,7 @@ export default function Home() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: currUser.message.username })
+            body: JSON.stringify({ username: currUser.username })
         })
             .then(res => res.json())
             .then(data => {
@@ -49,44 +51,58 @@ export default function Home() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: currUser.message.username })
+            body: JSON.stringify({ username: currUser.username })
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
     }
 
     return (
-        <div className="">
-            <HomeNavbar username={currUser.message && currUser.message.username} avatar={currUser.message && currUser.message.avatar} />
+        <div>
+            <HomeNavbar username={currUser.username} avatar={currUser.avatar} />
             <hr className="mb-12 lg:mb-14 xl:mb-16 3xl:mb-20" />
             <div className="px-6 text-center sm:px-0 sm:w-8/12 lg:w-1/2 m-auto flex flex-col gap-5 sm:gap-5 lg:gap-6 xl:gap-3 3xl:gap-6">
-                <h1 className="text-xl sm:text-3xl lg:text-4xl 3xl:text-5xl font-bold">
-                    Please verify your email...
-                </h1>
-                <IoMailUnread className="m-auto" size={100} color="#959595" />
-                <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
-                    Please verify your email address. We've sent a confirmation email to:
-                </p>
-                <strong className="text-xs sm:text-base lg:text-lg">
-                    account@refero.design
-                </strong>
-                <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
-                    Click the confirmation link in the email to begin using Dribbble.
-                </p>
-                <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
-                    Didn't receive the email? Check your spam folder, it may have been caught by a filter. If you still don't see it, you can
-                    <span onClick={sendConfirmationEmail} className="text-[#df4784] font-bold">
-                        {' '}resend the confirmation.
-                    </span>
-                </p>
-                <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
-                    Wrong email address?
-                    <span onClick={changeEmailAddress} className="text-[#ea4b8b] font-bold">
-                        {' '}Change it.
-                    </span>
-                </p>
+                {
+                    currUser.emailVerified === false &&
+                    <>
+                        <h1 className="text-xl sm:text-3xl lg:text-4xl 3xl:text-5xl font-bold">
+                            Please verify your email...
+                        </h1>
+                        <IoMailUnread className="m-auto" size={100} color="#959595" />
+                        <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
+                            Please verify your email address. We've sent a confirmation email to:
+                        </p>
+                        <strong className="text-xs sm:text-base lg:text-lg">
+                            account@refero.design
+                        </strong>
+                        <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
+                            Click the confirmation link in the email to begin using Dribbble.
+                        </p>
+                        <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
+                            Didn't receive the email? Check your spam folder, it may have been caught by a filter. If you still don't see it, you can
+                            <span onClick={sendConfirmationEmail} className="text-[#df4784] font-bold">
+                                {' '}resend the confirmation.
+                            </span>
+                        </p>
+                        <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
+                            Wrong email address?
+                            <span onClick={changeEmailAddress} className="text-[#ea4b8b] font-bold">
+                                {' '}Change it.
+                            </span>
+                        </p>
+                    </>
+                }
+                {
+                    currUser.emailVerified === true &&
+                    <div className="bg-white p-10 rounded-lg">
+                        <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-5xl font-bold mb-20">
+                            Welcome To Dribbble
+                        </h1>
+                        <img src={basketball} alt="" className="m-auto animate-bounce h-20" />
+                    </div>
+                }
             </div>
             <footer className="bg-[#f7f7f7]">
                 <div className="font-medium text-[#474747] grid grid-cols-1  sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-7 mt-20 gap-12 sm:gap-10 md:gap-12 lg:gap-16 3xl:gap-32 p-10 sm:p-14 md:p-16 lg:p-20 bg-[#f7f7f7]">
@@ -167,8 +183,8 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="p-10">
-                    <hr className="mb-10"/>
-                    <div className="text-center text-[#818181] text-xs sm:text-base lg:text-lg font-medium flex justify-between">   
+                    <hr className="mb-10" />
+                    <div className="text-center text-[#818181] text-xs sm:text-base lg:text-lg font-medium flex justify-between">
                         <p>
                             © 2023 Dribbble. All rights reserved.
                         </p>
@@ -180,6 +196,7 @@ export default function Home() {
                 </div>
 
             </footer>
+
         </div>
     )
 }

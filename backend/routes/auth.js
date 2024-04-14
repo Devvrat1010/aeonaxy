@@ -7,6 +7,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/users");
+const { Resend } = require('resend');
+
 
 const router = express.Router();
 const saltRounds = 10;
@@ -48,7 +50,7 @@ router.post("/signin", async (req, res) => {
         const authorize = bcrypt.compareSync(password, user.password);
         if (authorize) {
             const token = createToken(user._id);
-            res.status(200).json({ message: user, token: token });
+            res.status(200).json({ user: user, token: token });
         } else {
             res.status(400).json({ error: "Invalid credentials" });
         }
@@ -82,9 +84,13 @@ const validate = async (data) => {
 
 router.post("/signup", async (req, res) => {
     try {
+        const { username, email, password } = req.body;
+        username.toLowerCase();
+        console.log(username, "username")
         const existingUser = await User.find();
-        const userExists = existingUser.some(user => user.username === req.body.username || user.email === req.body.email);
-
+        const userExists = existingUser.some(user => user.username.toLowerCase() === req.body.username || user.email === req.body.email);
+        
+        console.log(userExists, "userExists")
         if (userExists) {
             return res.status(400).json({ error: "Username or email already exists" });
         }
@@ -99,16 +105,60 @@ router.post("/signup", async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hash,
-            fullName: req.body.fullName
+            fullName: req.body.fullName,
+            emailVerified: false,
+            profileCompleted: false,
         });
-
         const token = createToken(newUser._id);
-        return res.status(200).json({ message: newUser, token: token });
+        return res.status(200).json({ token: token });
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
 });
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+router.post("/sendConfirmationEmail", async (req, res) => {
+
+    const { email } = req.body;
+    console.log(email, "email")
+    console.log(process.env.SENDER_EMAIL, "process.env.SENDER_EMAIL")
+    const { data, error } = await resend.emails.send({
+        from: process.env.SENDER_EMAIL,
+        to: [email],
+        subject: 'Email Confirmation',
+        html: `<strong>Click on the link to confirm your email address!</strong><br><a href="http://localhost:5000/api/auth/confirmEmail/${email}">Click here to confirm your email address</a>`,
+    });
+
+    if (error) {
+        return console.error({ error });
+    }
+    console.log({ data });
+    res.status(200).json({ data: data });
+});
+
+router.get("/confirmEmail/:email", async (req, res) => {
+    try{
+        console.log(req.params, "req.params")
+ 
+        const { email } = req.params;
+        console.log(email, "email")
+        const user = await User.findOneAndUpdate(
+            { email: email },
+            { emailVerified: true }
+        )
+            
+        if (user) {
+            return res.status(200).json({ message: "Email verified successfully" });
+        } else {
+            return res.status(400).json({ error: "User not found" });
+        }
+    }
+    catch(err){
+        console.log(err)
+        return res.status(500).json({ error: err.message });
+    }
+});
 
 
 module.exports = router;

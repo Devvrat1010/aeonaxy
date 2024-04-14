@@ -20,7 +20,7 @@ export default function completeProfile() {
             if (result.error === true) {
                 navigate("/signin");
             } else {
-                setCurrUser(result.currUser);
+                setCurrUser(result.user);
             }
         };
         fetchData();
@@ -43,19 +43,17 @@ export default function completeProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(profilePic, 'pp')
-        console.log(location, 'loc')
-        console.log(currUser.message.username, 'user')
         fetch('http://localhost:5000/api/completeProfile/uploadImage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ avatar: profilePic, location: location, username: currUser.message.username })
+            body: JSON.stringify({ avatar: profilePic, location: location, username: currUser.username })
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            console.log(data, "user this")
+            // window.sessionStorage.setItem('user', JSON.stringify(data))
             navigate('/userSurvey')
         })
     }
@@ -64,7 +62,7 @@ export default function completeProfile() {
     return (
         <div>
             <Navbar
-                username={currUser.message && currUser.message.username}
+                username={currUser.username}
             />
             <div className='px-2 sm:w-8/12 lg:w-7/12 m-auto flex flex-col gap-5 sm:gap-5 lg:gap-6 xl:gap-8 3xl:gap-11'>
                 <div className='flex flex-col gap-1 sm:gap-2 lg:gap-2 xl:gap-3 2xl:gap-4 3xl:gap-7'>

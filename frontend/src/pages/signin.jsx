@@ -23,8 +23,8 @@ export default function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        // fetch('http://localhost:5000/api/auth/signin', {
-        fetch('https://aeonaxy-8u8e.onrender.com/api/auth/signin', {
+        fetch('http://localhost:5000/api/auth/signin', {
+        // fetch('https://aeonaxy-8u8e.onrender.com/api/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,10 +37,9 @@ export default function Signup() {
                     setErrorMsg(data.error)
                 }
                 else {
-                    // store token in cookies
                     setCookie('LOGIN_INFO', data.token, 3)
-                    sessionStorage.setItem('user', JSON.stringify(data))
-                    if (data.message.profileCompleted){
+                    window.sessionStorage.setItem('user', JSON.stringify(data.user))
+                    if (data.user.profileCompleted){
                         navigate('/')
                     }
                     else{
@@ -49,7 +48,6 @@ export default function Signup() {
                 }
             })
 
-        console.log(userDetails)
     }
     return (
         <div className='flex'>

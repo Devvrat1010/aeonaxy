@@ -6,22 +6,32 @@ import { FaBriefcase } from "react-icons/fa";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { IoIosArrowDropupCircle } from "react-icons/io";
 
-
 export default function HomeNavbar(props) {
 
     const [avatar, setAvatar] = useState(props.avatar);
 
     const [dropDown, setDropDown] = useState(false);
 
+    const [logout, setLogout] = useState(false);
+
+    const navigate = useNavigate();
+
     const handleDropDown = () => {
-        console.log(dropDown, 'clicked')
         setDropDown(!dropDown);
     }
-    // console.log(props.avatar, "avatar")
-
 
     const styles = {
         link: "w-fit text-black sm:text-xs md:text-xs lg:text-lg sm:text-[#818181] font-semibold hover:text-black"
+    }
+
+    const handleProfileClick = () => {
+        setLogout(!logout);
+    }
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('user');
+        navigate('/signin');
+        document.cookie = "LOGIN_INFO=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
     return (
@@ -31,7 +41,7 @@ export default function HomeNavbar(props) {
                 <div className='justify-between md:items-center w-full'>
                     <div className={`${dropDown ? "flex flex-col bg-pink-700 p-2 absolute top-0 left-0 duration-500 rounded-br-lg" : "hidden"}  md:flex justify-left md:items-center gap-3 sm:gap-6 lg:gap-8 sm:w-full`}>
                         <div className={`${dropDown ? "flex flex-col w-fit " : "hidden"} md:flex md:flex-row gap-5 justify-start text-lg md:w-full`}>
-                            {
+                        {
                                 dropDown === true &&
                                 <img src={props.avatar} alt="" className='rounded-full w-8 h-8'
                                     onClick={() => navigate('/profile')}
@@ -60,10 +70,15 @@ export default function HomeNavbar(props) {
                                 </label>
                                 <input type="text" name="search" id="search" placeholder="Search" className='bg-[#a1a1a1] md:bg-[#f1f1f1] font-normal md:font-medium focus:outline-none w-2/3' />
                             </div>
-                            <FaBriefcase size={30} color='#a1a1a1a' className='h-fit opacity-45' />
+                            <FaBriefcase size={35} color='#a1a1a1a' className='h-fit opacity-45' />
                             {
                                 dropDown === false &&
-                                <img src={props.avatar} alt="" className='rounded-full sm:h-6 sm:w-6 lg:h-8 lg:w-8' />
+                                <>
+                                <img src={props.avatar} alt="" className='rounded-full sm:h-6 sm:w-6 lg:h-8 lg:w-8 cursor-pointer' onClick={handleProfileClick} />
+                                <button className={`${logout ? "absolute -translate-x-10 translate-y-10  bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit" : "hidden"}`} onClick={handleLogout}>
+                                    Logout    
+                                </button>
+                                </>
                             }
                             <button type='submit' className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit' >
                                 Upload

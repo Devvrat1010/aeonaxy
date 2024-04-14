@@ -17,14 +17,14 @@ const checkUser = async () => {
                     return res.json();
                 })
                 .then((data) => {
-                    // setCurrUser(data.user);
-                    // console.log(data);
+                    console.log(data.user, "user this is its")
+                    window.sessionStorage.setItem('user', JSON.stringify(data.user))
                     return data.user
                 })
-            return { "currUser": currUser, "message": "User found.", "error": false}
+            return { "user": currUser, "message": "User found.", "error": false}
         }
         else {
-            return { "currUser": currUser, "message": "User found.", "error": false}
+            return { "user": currUser, "message": "User found.", "error": false}
         }
     }
     catch (err) {

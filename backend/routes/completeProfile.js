@@ -12,16 +12,16 @@ router.post("/uploadImage", async (req, res) => {
             return 
         }
         else{
-            const img = await User.findOneAndUpdate(
+            const user = await User.findOneAndUpdate(
                 { username: username },
                 { avatar: avatar, location: location }
             )
-            if (!img) {
+            if (!user) {
                 res.status(400).json({ error: "User not found" });
                 return
             }
-            console.log(img, "image")
-            res.status(200).json({ message: "Image uploaded successfully" });
+            console.log(user, "image")
+            res.status(200).json({ user:user, message: "Image uploaded successfully" });
         }
     }
     catch(err){
@@ -46,8 +46,8 @@ router.post("/survey", async (req, res) => {
                 res.status(400).json({ error: "User not found" });
                 return
             }
-            console.log(user, "user")
-            res.status(200).json({ message: "Survey completed successfully" });
+            // console.log(user, "user")
+            res.status(200).json({ user:user, message: "Survey completed successfully" });
         }
     }
     catch (err) {
