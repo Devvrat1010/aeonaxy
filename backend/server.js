@@ -39,7 +39,7 @@ const start = async () => {
 
 app.use("/", (req, res) => {
     // res.redirect("http://localhost:5173/confirmedEmail");
-    // res.send("Hello World");
+    res.send("Hello World");
 });
 
 start()
