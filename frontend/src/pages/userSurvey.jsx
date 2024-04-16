@@ -44,7 +44,8 @@ export default function userSurvey() {
     }
 
     const sendConfirmationEmail = () => {
-        fetch('hhttps://aeonaxy-8u8e.onrender.com/api/auth/sendConfirmationEmail', {
+        fetch('http://localhost:5000/api/auth/sendConfirmationEmail', {
+        // fetch('https://aeonaxy-8u8e.onrender.com/api/auth/sendConfirmationEmail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -65,7 +66,8 @@ export default function userSurvey() {
         console.log(currUser, "`currUser`")
         const finalSurvey = Object.keys(survey).filter(key => survey[key]).map(key => surveyDetails[key])
         console.log(finalSurvey, "finalSurvey")
-        fetch('https://aeonaxy-8u8e.onrender.com/api/completeProfile/survey', {
+        // fetch('https://aeonaxy-8u8e.onrender.com/api/completeProfile/survey', {
+        fetch('http://localhost:5000/api/completeProfile/survey', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

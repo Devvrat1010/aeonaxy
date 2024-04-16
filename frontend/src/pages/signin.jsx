@@ -23,8 +23,8 @@ export default function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        // fetch('http://localhost:5000/api/auth/signin', {
-        fetch('https://aeonaxy-8u8e.onrender.com/api/auth/signin', {
+        fetch('http://localhost:5000/api/auth/signin', {
+        // fetch('https://aeonaxy-8u8e.onrender.com/api/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,6 +39,7 @@ export default function Signup() {
                 else {
                     setCookie('LOGIN_INFO', data.token, 3)
                     window.sessionStorage.setItem('user', JSON.stringify(data.user))
+                    console.log(data, "data.user")
                     if (data.user.profileCompleted){
                         navigate('/')
                     }

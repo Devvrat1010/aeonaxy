@@ -8,7 +8,7 @@ import checkUser from '../functions/checkUser';
 export default function completeProfile() {
 
     const [currUser, setCurrUser] = useState({})
-    const [profilePic, setProfilePic] = useState("https://res.cloudinary.com/dpscsgghc/image/upload/v1712827678/dkaj8fqwkilnrdzsjwry.jpg")
+    const [profilePic, setProfilePic] = useState("")
     const navigate = useNavigate()
     const [location, setLocation] = useState('')
 
@@ -43,7 +43,8 @@ export default function completeProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('https://aeonaxy-8u8e.onrender.com/api/completeProfile/uploadImage', {
+        fetch('http://localhost:5000/api/completeProfile/uploadImage', {
+        // fetch('https://aeonaxy-8u8e.onrender.com/api/completeProfile/uploadImage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -80,7 +81,7 @@ export default function completeProfile() {
                             <h2 className='sm:text-xl lg:text-2xl 2xl:text-3xl font-bold text-cente text-left '>
                                 Add an avatar
                             </h2>
-                            <div className='rounded-full sm:w-44 sm:h-44 lg:w-48 lg:h-48 xl:w-56 xl:h-56 flex justify-center items-center'>
+                            <div className='rounded-full border-2 border-dashed sm:w-44 sm:h-44 lg:w-48 lg:h-48 xl:w-56 xl:h-56 flex justify-center items-center'>
                                 {
                                     profilePic !== '' ? <img src={profilePic} alt="" className='rounded-full w-40 h-40 sm:w-44 sm:h-44 lg:h-48 lg:w-48 xl:w-56 xl:h-56 object-cover border-dashed border-2 border-[#c4c4c4]' /> :
                                         <MdCameraEnhance size={35} color='#b1b1b1' />

@@ -3,7 +3,8 @@ const checkUser = async () => {
         const token = document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1]
         const currUser = JSON.parse(sessionStorage.getItem('user'))
         if (!currUser) {
-            const currUser = fetch("https://aeonaxy-8u8e.onrender.com/api/auth/getLoggedInUser", {
+            const currUser = await fetch("http://localhost:5000/api/auth/getLoggedInUser", {
+            // const currUser = fetch("https://aeonaxy-8u8e.onrender.com/api/auth/getLoggedInUser", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,7 +22,13 @@ const checkUser = async () => {
                     window.sessionStorage.setItem('user', JSON.stringify(data.user))
                     return data.user
                 })
-            return { "user": currUser, "message": "User found.", "error": false}
+            console.log(currUser, "curru")
+            if (currUser == null){
+                return { "message": "Invalid Token", "error": true }
+            }
+            else{
+                return { "user": currUser, "message": "User found.", "error": false}
+            }
         }
         else {
             return { "user": currUser, "message": "User found.", "error": false}
