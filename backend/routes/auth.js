@@ -148,7 +148,7 @@ router.get("/confirmEmail", async (req, res) => {
             { email: email },
             { emailVerified: true }
         )
-        res.status(200).redirect("http://localhost:5173/confirmedEmail");
+        res.status(200).redirect("https://aeonaxydev.netlify.app/confirmedEmail");
     }
     catch (err) {
         // console.log(err)
