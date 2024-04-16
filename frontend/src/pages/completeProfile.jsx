@@ -81,7 +81,7 @@ export default function completeProfile() {
                             <h2 className='sm:text-xl lg:text-2xl 2xl:text-3xl font-bold text-cente text-left '>
                                 Add an avatar
                             </h2>
-                            <div className='rounded-full border-2 border-dashed sm:w-44 sm:h-44 lg:w-48 lg:h-48 xl:w-56 xl:h-56 flex justify-center items-center'>
+                            <div className='rounded-full border-2 w-40 h-40 border-dashed sm:w-44 sm:h-44 lg:w-48 lg:h-48 xl:w-56 xl:h-56 flex justify-center items-center m-auto'>
                                 {
                                     profilePic !== '' ? <img src={profilePic} alt="" className='rounded-full w-40 h-40 sm:w-44 sm:h-44 lg:h-48 lg:w-48 xl:w-56 xl:h-56 object-cover border-dashed border-2 border-[#c4c4c4]' /> :
                                         <MdCameraEnhance size={35} color='#b1b1b1' />
@@ -89,10 +89,10 @@ export default function completeProfile() {
                             </div>
                         </div>
                         <div className='flex flex-col gap-2 sm:gap-6 lg:gap-7 xl:gap-8'>
-                            <button className='w-fit px-4 p-2 border-2 rounded-lg font-bold m-auto sm:m-none'>
-                                <label htmlFor="avatar" className=''>Choose image</label>
+                            {/* <button className='w-fit px-4 p-2 border-2 rounded-lg font-bold m-auto sm:m-none'> */}
+                                <label htmlFor="avatar" className='w-fit px-4 p-2 border-2 rounded-lg font-bold m-auto sm:m-none cursor-pointer'>Choose image</label>
                                 <input type="file" id="avatar" name='avatar' accept="image/*" onChange={uploadImage} className='hidden' />
-                            </button>
+                            {/* </button> */}
                             <button className='text-[#919191] text-sm sm:text-base lg:text-lg font-medium w-fit'>
                                 {'>'} Or Choose one of our defaults
                             </button>

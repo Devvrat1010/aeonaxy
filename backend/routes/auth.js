@@ -128,7 +128,7 @@ router.post("/sendConfirmationEmail", async (req, res) => {
         from: process.env.SENDER_EMAIL,
         to: [email],
         subject: 'Email Confirmation',
-        html: `<strong>Click on the link to confirm your email address!</strong><br><a href="https://aeonaxy-8u8e.onrender.com/api/auth/confirmEmail/${email}">Click here to confirm your email address</a>`,
+        html: `<strong>Click on the link to confirm your email address!</strong><br><a href="https://aeonaxy-8u8e.onrender.com/api/auth/confirmEmail?email=${email}">Click here to confirm your email address</a>`,
         // html: `<strong>Click on the link to confirm your email address!</strong><br><a href="http://localhost:5000/api/auth/confirmEmail?email=${email}">Click here to confirm your email address</a>`,
     });
 
