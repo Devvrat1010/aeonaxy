@@ -43,8 +43,8 @@ export default function completeProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:5000/api/completeProfile/uploadImage', {
-        // fetch('https://aeonaxy-8u8e.onrender.com/api/completeProfile/uploadImage', {
+        // fetch('http://localhost:5000/api/completeProfile/uploadImage', {
+        fetch('https://aeonaxy-8u8e.onrender.com/api/completeProfile/uploadImage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

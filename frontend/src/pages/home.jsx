@@ -32,8 +32,8 @@ export default function Home() {
     }, [])
 
     const sendConfirmationEmail = () => {
-        fetch('http://localhost:5000/api/auth/sendConfirmationEmail', {
-        // fetch('https://aeonaxy-8u8e.onrender.com/api/auth/sendConfirmationEmail', {
+        // fetch('http://localhost:5000/api/auth/sendConfirmationEmail', {
+        fetch('https://aeonaxy-8u8e.onrender.com/api/auth/sendConfirmationEmail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

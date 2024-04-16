@@ -173,17 +173,6 @@ router.get("/testEmail", async (req, res) => {
     const { email } = req.query;
     console.log(email, "email")
 });
-// router.get("/confirmEmail/:email", async (req, res) => {
-//     const { email } = req.params;
-//     console.log(email, "email")
-//     const user = await User.findOneAndUpdate(
-//         { email: email },
-//         { emailVerified: true }
-//     )
-//     console.log(user, "user found email updated")
-//     res.status(200).json({ message: "Email verified successfully", email: email, user: user });
-//     // res.status(200).redirect("http://localhost:5173/confirmedEmail");
-
 
 router.get("/test/:check", async (req, res) => {
     const { check } = req.params;

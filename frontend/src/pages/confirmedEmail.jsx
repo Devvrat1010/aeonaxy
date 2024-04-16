@@ -6,7 +6,8 @@ export default function ConfirmedEmail() {
 
     const navigate = useNavigate();
     const getLatestUserData = async (username) => {
-        fetch('http://localhost:5000/api/auth/getLoggedInUser', {
+        // fetch('http://localhost:5000/api/auth/getLoggedInUser', {
+        fetch('https://aeonaxy-8u8e.onrender.com/api/auth/getLoggedInUser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
