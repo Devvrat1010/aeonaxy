@@ -10,7 +10,7 @@ export default function Signup() {
     const [userDetails, setUserDetails] = useState({ email: '', password: '' })
 
     const handleChange = (e) => {
-        console.log(e.target.name, e.target.value)
+        // console.log(e.target.name, e.target.value)
         setUserDetails({ ...userDetails, [e.target.name]: e.target.value })
     }
     const setCookie = (cname, cvalue, exdays) => {
@@ -39,7 +39,7 @@ export default function Signup() {
                 else {
                     setCookie('LOGIN_INFO', data.token, 3)
                     window.sessionStorage.setItem('user', JSON.stringify(data.user))
-                    console.log(data, "data.user")
+                    // console.log(data, "data.user")
                     if (data.user.profileCompleted){
                         navigate('/')
                     }

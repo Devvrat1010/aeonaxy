@@ -18,14 +18,14 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             const result = await checkUser();
-            console.log(result.error, "error")
+            // console.log(result.error, "error")
             if (result.error === true) {
-                console.log(result.error, "error")
+                // console.log(result.error, "error")
                 navigate("/signin");
             } else {
-                console.log(result, "currUser")
+                // console.log(result, "currUser")
                 setCurrUser(result.user);
-                console.log(result.user, "currUser .user")
+                // console.log(result.user, "currUser .user")
             }
         };
         fetchData();
@@ -41,9 +41,9 @@ export default function Home() {
             body: JSON.stringify({ username: currUser.username })
         })
             .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
+            // .then(data => {
+                // console.log(data)
+            // })
     }
 
     const changeEmailAddress = () => {
@@ -56,9 +56,9 @@ export default function Home() {
             body: JSON.stringify({ username: currUser.username })
         })
         .then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
+        // .then(data => {
+            // console.log(data)
+        // })
     }
 
     return (

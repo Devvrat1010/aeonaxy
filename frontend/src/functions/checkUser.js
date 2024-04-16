@@ -18,11 +18,11 @@ const checkUser = async () => {
                     return res.json();
                 })
                 .then((data) => {
-                    console.log(data.user, "user this is its")
+                    // console.log(data.user, "user this is its")
                     window.sessionStorage.setItem('user', JSON.stringify(data.user))
                     return data.user
                 })
-            console.log(currUser, "curru")
+            // console.log(currUser, "curru")
             if (currUser == null){
                 return { "message": "Invalid Token", "error": true }
             }

@@ -47,7 +47,7 @@ router.post("/signin", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (user) {
-        console.log(user, "user")
+        // console.log(user, "user")
         const authorize = bcrypt.compareSync(password, user.password);
         if (authorize) {
             const token = createToken(user._id);
@@ -87,11 +87,11 @@ router.post("/signup", async (req, res) => {
     try {
         const { username, email, password } = req.body;
         username.toLowerCase();
-        console.log(username, "username")
+        // console.log(username, "username")
         const existingUser = await User.find();
         const userExists = existingUser.some(user => user.username.toLowerCase() === req.body.username || user.email === req.body.email);
         
-        console.log(userExists, "userExists")
+        // console.log(userExists, "userExists")
         if (userExists) {
             return res.status(400).json({ error: "Username or email already exists" });
         }
@@ -121,22 +121,21 @@ router.post("/signup", async (req, res) => {
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post("/sendConfirmationEmail", async (req, res) => {
-
     const { email } = req.body;
-    console.log(email, "email")
-    console.log(process.env.SENDER_EMAIL, "process.env.SENDER_EMAIL")
+    // console.log(email, "email")
+    // console.log(process.env.SENDER_EMAIL, "process.env.SENDER_EMAIL")
     const { data, error } = await resend.emails.send({
         from: process.env.SENDER_EMAIL,
         to: [email],
         subject: 'Email Confirmation',
-        // html: `<strong>Click on the link to confirm your email address!</strong><br><a href="https://aeonaxy-8u8e.onrender.com/api/auth/confirmEmail/${email}">Click here to confirm your email address</a>`,
-        html: `<strong>Click on the link to confirm your email address!</strong><br><a href="http://localhost:5000/api/auth/confirmEmail?email=${email}">Click here to confirm your email address</a>`,
+        html: `<strong>Click on the link to confirm your email address!</strong><br><a href="https://aeonaxy-8u8e.onrender.com/api/auth/confirmEmail/${email}">Click here to confirm your email address</a>`,
+        // html: `<strong>Click on the link to confirm your email address!</strong><br><a href="http://localhost:5000/api/auth/confirmEmail?email=${email}">Click here to confirm your email address</a>`,
     });
 
-    if (error) {
-        return console.error({ error });
-    }
-    console.log({ data });
+    // if (error) {
+        // return console.error({ error });
+    // }
+    // console.log({ data });
     res.status(200).json({ data: data });
 });
 
@@ -144,41 +143,18 @@ router.get("/confirmEmail", async (req, res) => {
     try {
 
         const { email } = req.query;
-        console.log(email, "email")
+        // console.log(email, "email")
         const user = await User.findOneAndUpdate(
             { email: email },
             { emailVerified: true }
         )
-        // console.log(user, "user found ?email updated")
-        // res.status(200).json({ message: "Email verified successfully", email: email, user: user });
         res.status(200).redirect("http://localhost:5173/confirmedEmail");
-        // if (user) {
-        //     console.log(user, "user found email updated")
-        //     return res.status(200).json({ message: "Email verified successfully" });
-        //     // return res.status(200).redirect("http://localhost:5173/confirmedEmail");
-        // } else {
-        //     return res.status(400).json({ error: "User not found" });
-        // }
     }
     catch (err) {
-        console.log(err)
+        // console.log(err)
         res.status(500).json({ error: err.message });
     }
 
 });
-
-// wriet a get request to get email from quer parameters in form of ?email=
-
-router.get("/testEmail", async (req, res) => {
-    const { email } = req.query;
-    console.log(email, "email")
-});
-
-router.get("/test/:check", async (req, res) => {
-    const { check } = req.params;
-    console.log(req.params, "req.params")
-    // res.status(200).json({check:check, message: "Test route" });
-});
-
 
 module.exports = router;

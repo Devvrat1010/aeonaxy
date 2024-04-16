@@ -15,7 +15,7 @@ export default function completeProfile() {
     useEffect(() => {
         const fetchData = async () => {
             const result = await checkUser();
-            console.log(result, 'user');
+            // console.log(result, 'user');
     
             if (result.error === true) {
                 navigate("/signin");
@@ -53,7 +53,7 @@ export default function completeProfile() {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data, "user this")
+            // console.log(data, "user this")
             // window.sessionStorage.setItem('user', JSON.stringify(data))
             navigate('/userSurvey')
         })

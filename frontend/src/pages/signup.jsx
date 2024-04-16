@@ -9,8 +9,8 @@ export default function Signup() {
     const [userDetails, setUserDetails] = useState({ fullName: '', username: '', email: '', password: '', checked: false })
     const navigate = useNavigate()
     const handleChange = (e) => {
-        // console.log(e.target.checked)
-        console.log(e.target.name, e.target.value)
+        console.log(e.target.checked)
+        // console.log(e.target.name, e.target.value)
         setUserDetails({ ...userDetails, [e.target.name]: e.target.value })
     }
 
@@ -34,13 +34,13 @@ export default function Signup() {
                     setErrorMsg(data.error)
                 }
                 else {
-                    console.log(data)
+                    // console.log(data)
                     alert('Account created successfully')
                     navigate('/signin')
                 }
             })
 
-        console.log(userDetails)
+        // console.log(userDetails)
     }
 
     return (

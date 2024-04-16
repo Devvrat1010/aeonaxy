@@ -20,12 +20,12 @@ router.post("/uploadImage", async (req, res) => {
                 res.status(400).json({ error: "User not found" });
                 return
             }
-            console.log(user, "image")
+            // console.log(user, "image")
             res.status(200).json({ user:user, message: "Image uploaded successfully" });
         }
     }
     catch(err){
-        console.log(err)
+        // console.log(err)
         res.status(500).json({ error: err.message });
     }
 });
@@ -46,12 +46,12 @@ router.post("/survey", async (req, res) => {
                 res.status(400).json({ error: "User not found" });
                 return
             }
-            // console.log(user, "user")
+            console.log(user, "user")
             res.status(200).json({ user:user, message: "Survey completed successfully" });
         }
     }
     catch (err) {
-        console.log(err)
+        // console.log(err)
         res.status(500).json({ error: err.message });
     }
 });

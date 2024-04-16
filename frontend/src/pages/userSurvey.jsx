@@ -24,7 +24,7 @@ export default function userSurvey() {
     useEffect(() => {
         const fetchData = async () => {
             const result = await checkUser();
-            console.log(result.user, 'user thisssss');
+            // console.log(result.user, 'user thisssss');
     
             if (result.error === true) {
                 navigate("/signin");
@@ -53,9 +53,9 @@ export default function userSurvey() {
             body: JSON.stringify({ email: currUser.email })
         })
             .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
+            // .then(data => {
+                // console.log(data)
+            // })
     }
     
 
@@ -63,9 +63,9 @@ export default function userSurvey() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(currUser, "`currUser`")
+        // console.log(currUser, "`currUser`")
         const finalSurvey = Object.keys(survey).filter(key => survey[key]).map(key => surveyDetails[key])
-        console.log(finalSurvey, "finalSurvey")
+        // console.log(finalSurvey, "finalSurvey")
         fetch('https://aeonaxy-8u8e.onrender.com/api/completeProfile/survey', {
         // fetch('http://localhost:5000/api/completeProfile/survey', {
             method: 'POST',
@@ -76,15 +76,15 @@ export default function userSurvey() {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data, "user fginal survey")
+            // console.log(data, "user fginal survey")
             let tempUser = window.sessionStorage.getItem('user', JSON.stringify(data))
             tempUser = JSON.parse(tempUser)
-            console.log(tempUser, "tempUser")
+            // console.log(tempUser, "tempUser")
             tempUser.user = data.user
 
             window.sessionStorage.setItem('user', JSON.stringify(data.user))
             
-            console.log(JSON.parse(window.sessionStorage.getItem('user')), "This is the Final user")
+            // console.log(JSON.parse(window.sessionStorage.getItem('user')), "This is the Final user")
 
             sendConfirmationEmail()
             navigate('/')

@@ -20,20 +20,20 @@ export default function ConfirmedEmail() {
             .then(res => res.json())
             .then(data => {
                 window.sessionStorage.setItem('user', JSON.stringify(data.user))
-                console.log(data, "thisss")
+                // console.log(data, "thisss")
             })
     }
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await checkUser();
-            console.log(result, 'user');
+            // console.log(result, 'user');
             
             if (result.error === true) {
                 navigate("/signin");
             } else {
                 getLatestUserData(result.user.username);
-                console.log("hehe")
+                // console.log("hehe")
 
                 // navigate("/");
                 // setCurrUser(result.user);
