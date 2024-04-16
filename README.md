@@ -17,24 +17,41 @@ This repository contains the source code for [Aeonaxy](https://aeonaxydev.netlif
     ```bash
     git clone https://github.com/Devvrat1010/aeonaxy
     ```
-2. go to backend folder:
+#### Backend 
+1. Go to the backend folder:
    ```bash
    cd backend
     ```
    
-3. Install dependencies:
+2. Install dependencies:
     ```bash
     npm install
     ```
     
-4. To run the backend of the application in development mode, use the following command:
+3. To run the backend of the application in development mode, use the following command:
     ```bash
     npm start
     ```
     
-5. Api endpoint :
+4. Api endpoint :
     ```bash
     http://localhost:5000/
+    ```
+    
+#### Frontend 
+1. Go to the backend folder:
+   ```bash
+   cd frontend
+    ```
+   
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+    
+3. To run the frontend of the application in development mode, use the following command:
+    ```bash
+    npm run dev
     ```
 
 ## Deployment
