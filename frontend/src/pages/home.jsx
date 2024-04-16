@@ -70,7 +70,7 @@ export default function Home() {
         })
         .catch(err => {
             alert(err)
-            console.log(err)
+            // console.log(err)
         })
         setChangeEmail(false)
         sendConfirmationEmail()

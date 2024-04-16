@@ -21,7 +21,7 @@ export default function HomeNavbar(props) {
         setDropDown(!dropDown);
     }
 
-    console.log(props, "props")
+    // console.log(props, "props")
 
     const styles = {
         link: "w-full p-2 rounded-lg sm:p-0 sm:w-fit text-white text-opacity-90 text-sm sm:text-xs md:text-xs lg:text-lg sm:text-[#818181] font-semibold hover:text-black bg-pink-900 sm:bg-transparent cursor-pointer "

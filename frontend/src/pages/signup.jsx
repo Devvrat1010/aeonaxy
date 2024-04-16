@@ -9,7 +9,7 @@ export default function Signup() {
     const [userDetails, setUserDetails] = useState({ fullName: '', username: '', email: '', password: '', checked: false })
     const navigate = useNavigate()
     const handleChange = (e) => {
-        console.log(e.target.checked)
+        // console.log(e.target.checked)
         // console.log(e.target.name, e.target.value)
         setUserDetails({ ...userDetails, [e.target.name]: e.target.value })
     }
