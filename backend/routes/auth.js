@@ -107,7 +107,7 @@ router.post("/signup", async (req, res) => {
             password: hash,
             fullName: req.body.fullName,
             emailVerified: false,
-            profileCompleted: false,
+            profileCompleted: false
         });
         const token = createToken(newUser._id);
         return res.status(200).json({ token: token });
