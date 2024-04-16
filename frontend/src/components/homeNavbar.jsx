@@ -75,9 +75,17 @@ export default function HomeNavbar(props) {
                                 dropDown === false &&
                                 <>
                                 <img src={props.avatar} alt="" className='rounded-full sm:h-6 sm:w-6 lg:h-8 lg:w-8 cursor-pointer' onClick={handleProfileClick} />
-                                <button className={`${logout ? "absolute -translate-x-10 translate-y-10  bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit" : "hidden"}`} onClick={handleLogout}>
-                                    Logout    
-                                </button>
+                                <div className={`${logout ? "absolute -translate-x-10 translate-y-10  bg-pink-700 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit" : "hidden"}`}>
+                                    <p className='bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit'>
+                                        {props.username}
+                                    </p>
+                                    <p className='bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit'>
+                                        {props.email}
+                                    </p>
+                                    <button className={`bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit`} onClick={handleLogout}>
+                                        Logout    
+                                    </button>
+                                </div>
                                 </>
                             }
                             <button type='submit' className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit' >

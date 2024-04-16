@@ -51,8 +51,8 @@ export default function Home() {
     }
 
     const changeEmailAddress = (newEmailAddress) => {
-        fetch('http://localhost:5000/api/auth/changeEmailAddress', {
-        // fetch('https://aeonaxy-8u8e.onrender.com/api/auth/changeEmailAddress', {
+        // fetch('http://localhost:5000/api/auth/changeEmailAddress', {
+        fetch('https://aeonaxy-8u8e.onrender.com/api/auth/changeEmailAddress', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
