@@ -12,20 +12,23 @@ export default function HomeNavbar(props) {
 
     const [dropDown, setDropDown] = useState(false);
 
-    const [logout, setLogout] = useState(false);
+    const [profile, setProfile] = useState(false);
 
+    const [logout, setLogout] = useState(false);
     const navigate = useNavigate();
 
     const handleDropDown = () => {
         setDropDown(!dropDown);
     }
 
+    console.log(props, "props")
+
     const styles = {
-        link: "w-fit text-black sm:text-xs md:text-xs lg:text-lg sm:text-[#818181] font-semibold hover:text-black"
+        link: "w-full p-2 rounded-lg sm:p-0 sm:w-fit text-white text-opacity-90 text-sm sm:text-xs md:text-xs lg:text-lg sm:text-[#818181] font-semibold hover:text-black bg-pink-900 sm:bg-transparent cursor-pointer "
     }
 
     const handleProfileClick = () => {
-        setLogout(!logout);
+        setProfile(!profile);
     }
 
     const handleLogout = () => {
@@ -35,60 +38,67 @@ export default function HomeNavbar(props) {
     }
 
     return (
-        <nav className='font-medium flex justify-between items-center px-2 py-3 lg:px-3 lg:py-4 3xl:p-5 text-sm md:text-base'>
+        <nav className='font-medium flex justify-between items-center px-2 py-3 lg:px-3 lg:py-4 3xl:p-5 text-sm md:text-base  '>
             <div className={`flex gap-2 w-full`}>
                 <img src={dribbble} alt="" className={` md:block h-8 sm:h-8 lg:h-10 2xl:h-12`} />
                 <div className='justify-between md:items-center w-full'>
-                    <div className={`${dropDown ? "flex flex-col bg-pink-700 p-2 absolute top-0 left-0 duration-500 rounded-br-lg" : "hidden"}  md:flex justify-left md:items-center gap-3 sm:gap-6 lg:gap-8 sm:w-full`}>
-                        <div className={`${dropDown ? "flex flex-col w-fit " : "hidden"} md:flex md:flex-row gap-5 justify-start text-lg md:w-full`}>
+                    <div className={`${dropDown ? "flex flex-col bg-pink-700 p-2 absolute top-0 left-0 duration-500 rounded-br-lg z-10" : "hidden"}  md:flex justify-left md:items-center gap-3 sm:gap-6 lg:gap-8 sm:w-full`}>
+                        <div className={`${dropDown ? "flex flex-col w-full " : "hidden"} md:flex md:flex-row gap-3 sm:gap-5 justify-start text-lg md:w-full`}>
                         {
                                 dropDown === true &&
-                                <img src={props.avatar} alt="" className='rounded-full w-8 h-8'
-                                    onClick={() => navigate('/profile')}
-                                />
+                                <>
+                                    <img src={props.avatar} alt="" className='rounded-full w-8 h-8'
+                                        onClick={() => { setLogout(!logout) }}
+                                    />
+                                    <button className={`${logout ? "block" : "hidden" } bg-pink-900 hover:bg-[#e42c76] duration-150 rounded-lg p-2  text-white w-full text-sm`} onClick={handleLogout}>
+                                        Logout
+                                    </button>
+                                </>
                             }
-                            <a href="/inspiration" className={styles.link}>
+                            <div href="/inspiration" className={styles.link}>
                                 Inspiration
-                            </a>
-                            <a href="/findWork" className={styles.link}>
+                            </div>
+                            <div href="/findWork" className={styles.link}>
                                 Find Work
-                            </a>
-                            <a href="/learnDesign" className={styles.link}>
+                            </div>
+                            <div href="/learnDesign" className={styles.link}>
                                 Learn Design
-                            </a>
-                            <a href="/goPro" className={styles.link}>
+                            </div>
+                            <div href="/goPro" className={styles.link}>
                                 Go Pro
-                            </a>
-                            <a href="/hireDesigners" className={styles.link}>
+                            </div>
+                            <div href="/hireDesigners" className={styles.link}>
                                 Hire Designers
-                            </a>
+                            </div>
                         </div>
                         <div className={`flex ${dropDown ? "flex-col" : "flex-row"} gap-4 justify-end md:items-center h-fit w-fit md:w-auto`}>
-                            <div className='flex items-center bg-[#a1a1a1] md:bg-[#f1f1f1] p-1 px-2  lg:p-2 lg:px-4 gap-2 rounded-lg focus-within:outline-[#ff9ec5] focus-within:outline-dotted'>
+                            <div className='flex items-center bg-[#a1a1a1] md:bg-[#f1f1f1] p-2 lg:px-4 gap-2 rounded-lg focus-within:outline-[#ff9ec5] focus-within:outline-dotted'>
                                 <label htmlFor="search" className='w-fit md:opacity-40'>
                                     <IoSearch />
                                 </label>
                                 <input type="text" name="search" id="search" placeholder="Search" className='bg-[#a1a1a1] md:bg-[#f1f1f1] font-normal md:font-medium focus:outline-none w-2/3' />
                             </div>
-                            <FaBriefcase size={35} color='#a1a1a1a' className='h-fit opacity-45' />
+                            <FaBriefcase size={40} color='#a1a1a1a' className=' opacity-45' />
                             {
                                 dropDown === false &&
-                                <>
-                                <img src={props.avatar} alt="" className='rounded-full sm:h-6 sm:w-6 lg:h-8 lg:w-8 cursor-pointer' onClick={handleProfileClick} />
-                                <div className={`${logout ? "absolute -translate-x-10 translate-y-10  bg-pink-700 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit" : "hidden"}`}>
-                                    <p className='bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit'>
-                                        {props.username}
-                                    </p>
-                                    <p className='bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit'>
-                                        {props.email}
-                                    </p>
-                                    <button className={`bg-[#000000] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit`} onClick={handleLogout}>
-                                        Logout    
-                                    </button>
+                                <div className=''>
+                                    <div className='sm:h-6 sm:w-6 lg:h-8 lg:w-8'>
+                                        <img src={props.avatar} alt="" className='rounded-full sm:w-6 sm:h-6 lg:h-8 lg:w-8 cursor-pointer' onClick={handleProfileClick} />
+                                    </div>
+                                    <div className={`${profile ? "absolute -translate-x-full translate-y-10  bg-[#ea4b8b] rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit flex flex-col gap-2" : "hidden"} text-center`}>
+                                        <p className='bg-pink-700 hover:bg-pink-800 duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-black w-full cursor-pointer'>
+                                            {props.username}
+                                        </p>
+                                        <p className='bg-pink-700 hover:bg-pink-800 duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-black w-full cursor-pointer'>
+                                            {props.email}
+                                        </p>
+                                        <button className={`bg-pink-700 hover:bg-pink-800 duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-black w-full cursor-pointer`} onClick={handleLogout}>
+                                            Logout    
+                                        </button>
+                                    </div>
                                 </div>
-                                </>
                             }
-                            <button type='submit' className='bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit' >
+                            <button type='submit' className='bg-pink-900 sm:bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-2 sm:p-1 sm:px-2 lg:p-2 text-white md:w-fit w-full' >
                                 Upload
                             </button>
                         </div>

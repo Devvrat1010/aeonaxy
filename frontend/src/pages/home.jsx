@@ -78,7 +78,7 @@ export default function Home() {
 
     return (
         <div>
-            <HomeNavbar username={currUser.username} avatar={currUser.avatar} />
+            <HomeNavbar username={currUser.username} avatar={currUser.avatar} email={currUser.email}/>
             <hr className="mb-12 lg:mb-14 xl:mb-16 3xl:mb-20" />
             <div className="px-6 text-center sm:px-0 sm:w-8/12 lg:w-1/2 m-auto flex flex-col gap-5 sm:gap-5 lg:gap-6 xl:gap-3 3xl:gap-6">
                 {
@@ -126,7 +126,7 @@ export default function Home() {
                         <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-5xl font-bold mb-20">
                             Welcome To Dribbble
                         </h1>
-                        <img src={basketball} alt="" className="m-auto animate-bounce h-20" />
+                        <img src={basketball} alt="" className="m-auto animate-bounce h-20 -z-10" />
                     </div>
                 }
             </div>

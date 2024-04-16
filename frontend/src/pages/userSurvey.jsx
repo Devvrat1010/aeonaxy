@@ -133,7 +133,7 @@ export default function userSurvey() {
                             <div className={`${survey.surveyMixer && "-translate-y-12 sm:-translate-y-12 lg:-translate-y-20  "}`}>
                                 <img src={surveyMixer} alt="" className="w-48 md:w-32 lg:w-48 3xl:w-56 m-auto mb-7 duration" />
                                 <h1 className="font-bold text-sm sm:text-base lg:text-xl w-full sm:w-64 mb-4 lg:mb-2 ">
-                                    I'm a designer looking to share my work
+                                    I'm looking to hire a developer
                                 </h1>
                                 {
                                     survey.surveyMixer && <p className="w-fit sm:w-64 text-xs lg:text-sm text-[#818181] font-medium">
