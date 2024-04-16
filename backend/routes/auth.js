@@ -86,10 +86,10 @@ const validate = async (data) => {
 router.post("/signup", async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        username.toLowerCase();
+        const newUsername = username.toLowerCase();
         // console.log(username, "username")
         const existingUser = await User.find();
-        const userExists = existingUser.some(user => user.username.toLowerCase() === req.body.username || user.email === req.body.email);
+        const userExists = existingUser.some(user => user.username === newUsername || user.email === req.body.email);
         
         // console.log(userExists, "userExists")
         if (userExists) {
@@ -103,7 +103,7 @@ router.post("/signup", async (req, res) => {
 
         const hash = bcrypt.hashSync(req.body.password, saltRounds);
         const newUser = await User.create({
-            username: req.body.username,
+            username: newUsername,
             email: req.body.email,
             password: hash,
             fullName: req.body.fullName,
@@ -157,4 +157,29 @@ router.get("/confirmEmail", async (req, res) => {
 
 });
 
+router.post("/changeEmailAddress", async (req, res) => {
+    try{
+        const { username, email } = req.body;
+        if (!username || !email) {
+            res.status(400).json({ error: "All fields are required" });
+            return 
+        }
+        else{
+            const user = await User.findOneAndUpdate(
+                { username: username },
+                { email: email, emailVerified: false }
+            )
+            if (!user) {
+                res.status(400).json({ error: "User not found" });
+                return
+            }
+            // console.log(user, "image")
+            res.status(200).json({ user:user, message: "Email changed successfully" });
+        }
+    }
+    catch(err){
+        // console.log(err)
+        res.status(500).json({ error: err.message });
+    }
+});
 module.exports = router;

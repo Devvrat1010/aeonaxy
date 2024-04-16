@@ -15,6 +15,10 @@ export default function Home() {
     const [currUser, setCurrUser] = useState({})
     const navigate = useNavigate()
 
+
+    const [changeEmail, setChangeEmail] = useState(false)
+    const [newEmailAddress, setNewEmailAddress] = useState('')
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await checkUser();
@@ -46,19 +50,24 @@ export default function Home() {
             // })
     }
 
-    const changeEmailAddress = () => {
+    const changeEmailAddress = (newEmailAddress) => {
         fetch('http://localhost:5000/api/auth/changeEmailAddress', {
         // fetch('https://aeonaxy-8u8e.onrender.com/api/auth/changeEmailAddress', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: currUser.username })
+            body: JSON.stringify({ username: currUser.username, email: newEmailAddress})
         })
         .then(res => res.json())
-        // .then(data => {
-            // console.log(data)
-        // })
+        .then(data => {
+            setCurrUser.email = newEmailAddress
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        setChangeEmail(true)
+        sendConfirmationEmail()
     }
 
     return (
@@ -88,12 +97,21 @@ export default function Home() {
                                 {' '}resend the confirmation.
                             </span>
                         </p>
-                        <p className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
+                        <div className="text-[#818181] text-xs sm:text-base lg:text-lg font-medium">
                             Wrong email address?
-                            <span onClick={changeEmailAddress} className="text-[#ea4b8b] font-bold">
+                            <span onClick={() => setChangeEmail(!changeEmail)} className="text-[#ea4b8b] font-bold" >
                                 {' '}Change it.
                             </span>
-                        </p>
+                            <div className={`${changeEmail ? "block" : "hidden"} flex flex-col gap-1`}>
+                                <label htmlFor="email" className=''>Email</label>
+                                <input type="email" id="email" name="email" placeholder="New Email Address" onChange={(e)=>{
+                                    setNewEmailAddress(e.target.value)
+                                }} required className='bg-[#f1f1f1] p-2 px-4 rounded-lg font-normal md:font-medium focus:outline-[#ff9ec5]' />
+                                <button className="bg-[#ea4b8b] hover:bg-[#e42c76] duration-150 rounded-lg p-1 sm:p-1 sm:px-2 lg:p-2 text-white w-fit" onClick={changeEmailAddress}>
+                                    Change Email
+                                </button>
+                            </div>
+                        </div>
                     </>
                 }
                 {

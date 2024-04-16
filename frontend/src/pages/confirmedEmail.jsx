@@ -20,6 +20,7 @@ export default function ConfirmedEmail() {
             .then(res => res.json())
             .then(data => {
                 window.sessionStorage.setItem('user', JSON.stringify(data.user))
+                navigate('/')
                 // console.log(data, "thisss")
             })
     }
@@ -31,13 +32,7 @@ export default function ConfirmedEmail() {
             
             if (result.error === true) {
                 navigate("/signin");
-            } else {
-                getLatestUserData(result.user.username);
-                // console.log("hehe")
-
-                // navigate("/");
-                // setCurrUser(result.user);
-            }
+            } 
         };
         fetchData();
     }, [])
@@ -45,7 +40,7 @@ export default function ConfirmedEmail() {
     return (
         <div>
             <h1 className='text-xl sm:text-3xl lg:text-4xl 3xl:text-5xl font-bold m-auto w-fit mt-20'>Confirmed Email</h1>
-            <a href="/">
+            <a onClick={getLatestUserData}>
                 <h1 className='text-xl sm:text-3xl lg:text-4xl 3xl:text-5xl font-bold m-auto w-fit mt-20 cursor-pointer hover:text-[#df4784]'>
                     Go back to home page
                 </h1>
