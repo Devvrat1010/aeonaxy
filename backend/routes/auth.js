@@ -173,6 +173,10 @@ router.post("/changeEmailAddress", async (req, res) => {
                 res.status(400).json({ error: "User not found" });
                 return
             }
+            if (email == user.email){
+                res.status(400).json({ error: "Email is same as the previous one" });
+                return
+            }
             // console.log(user, "image")
             res.status(200).json({ user:user, message: "Email changed successfully" });
         }

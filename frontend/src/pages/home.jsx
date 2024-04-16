@@ -61,12 +61,18 @@ export default function Home() {
         })
         .then(res => res.json())
         .then(data => {
-            setCurrUser.email = newEmailAddress
+            if (data.error) {
+                alert(data.error)
+            }
+            else{
+                setCurrUser.email = newEmailAddress
+            }
         })
         .catch(err => {
+            alert(err)
             console.log(err)
         })
-        setChangeEmail(true)
+        setChangeEmail(false)
         sendConfirmationEmail()
     }
 
