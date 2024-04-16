@@ -15,12 +15,10 @@ const port = process.env.PORT || 5000
 const auth = require('./routes/auth')
 const completeProfile = require('./routes/completeProfile')
 const cronjobs = require('./routes/cronjobs')
-const temp = require('./routes/temp')
 
 app.use('/api/auth', auth)
 app.use('/api/completeProfile', completeProfile)
 app.use('/api/cronjobs', cronjobs)
-app.use('/api/temp', temp)
 
 
 const start = async () => {
